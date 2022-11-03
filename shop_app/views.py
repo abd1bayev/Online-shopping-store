@@ -26,21 +26,3 @@ def shop_single(request):
 def thankyou(request):
     return render(request,'thankyou.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def home(request):
-    return render(request,'index.html')
