@@ -146,11 +146,13 @@
         </div>
       </div>
     </div>
-  {% for category in categorys %}
+    <div class="cards" >
+
     <div class="site-section site-blocks-2">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+          {% for category in categorys %}
+          <div class="col-md-6 col-lg-4 py-3" data-aos="fade" data-aos-delay="">
             <a class="block-2-item" href="#">
               <figure class="image">
                 <img src="{{ category.image.url }}" alt="" class="img-fluid">
@@ -161,6 +163,7 @@
               </div>
             </a>
           </div>
+          {% endfor %}
 <!--          <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">-->
 <!--            <a class="block-2-item" href="#">-->
 <!--              <figure class="image">-->
@@ -187,7 +190,9 @@
         </div>
       </div>
     </div>
-  {% endfor %}
+
+    </div>
+
     <div class="site-section block-3 site-blocks-2 bg-light">
       <div class="container">
         <div class="row justify-content-center">
