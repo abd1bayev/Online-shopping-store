@@ -42,6 +42,19 @@
               </div>
             </div>
 
+      {% if user.is_authenticated %}
+          <div class="alert alert-success" role="alert">
+              <h3>Welcome {{ user.username }}!</h3>
+              <a href="{% url 'logout' %}">Logout?</a>
+          </div>
+      {% else %}
+          <div class="alert alert-success" role="alert">
+              <h3>Welcome!</h3>
+              <a href="{% url 'register' %}">Signup</a>
+              <a href="{% url 'login' %}">Login</a>
+          </div>
+      {% endif %}
+
             <div class="col-6 col-md-4 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
