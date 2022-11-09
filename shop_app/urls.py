@@ -6,6 +6,7 @@ from shop_app import views as user_views
 from .views import *
 
 urlpatterns = [
+    path('',home, name='hom'),
     path('home/',home, name='home'),
     path('about/', about, name='about'),
     path('cart/', cart, name='cart'),
