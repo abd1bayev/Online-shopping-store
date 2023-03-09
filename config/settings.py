@@ -64,27 +64,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'gip_db',
+#         'USER': 'gip_user',
+#         'PASSWORD': 'gip_pass',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
 
-# DATABASE_CONNECTION_DEFAULT_NAME = "default"
-#
-# DATABASES = {
-#     DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(
-#         default="postgres://gipermart:123456@localhost:5432/gipermart", conn_max_age=500,require_ssl=True
-#     ),
-#     # TODO: We need to add read only user to saleor platfrom, and we need to update
-#     # docs.
-#     # DATABASE_CONNECTION_REPLICA_NAME: dj_database_url.config(
-#     #     default="postgres://saleor_read_only:saleor@localhost:5432/saleor",
-#     #     conn_max_age=600,
-#     # ),
-# }
-DATABASES = {'default': dj_database_url.config(default='postgres://gipermart:123456@localhost:5432/gipermart')}
+
+# DATABASES = {'default': dj_database_url.config(default='postgres://gipermart:123456@localhost:5432/gipermart')}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
