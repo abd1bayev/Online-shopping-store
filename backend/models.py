@@ -19,29 +19,18 @@ class AccountAddress(models.Model):
         db_table = 'account_address'
 
 
-class AccountCustomerevent(models.Model):
-    date = models.DateTimeField()
-    type = models.CharField(max_length=255)
-    parameters = models.JSONField()
-    order = models.ForeignKey('OrderOrder', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey('AccountUser', models.DO_NOTHING, blank=True, null=True)
-    app = models.ForeignKey('AppApp', models.DO_NOTHING, blank=True, null=True)
+# class AccountCustomerevent(models.Model):
+#     date = models.DateTimeField()
+#     type = models.CharField(max_length=255)
+#     parameters = models.JSONField()
+#     order = models.ForeignKey('OrderOrder', models.DO_NOTHING, blank=True, null=True)
+#     user = models.ForeignKey('AccountUser', models.DO_NOTHING, blank=True, null=True)
+#     app = models.ForeignKey('AppApp', models.DO_NOTHING, blank=True, null=True)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'account_customerevent'
 
-    class Meta:
-        managed = False
-        db_table = 'account_customerevent'
-
-
-class AccountCustomernote(models.Model):
-    date = models.DateTimeField()
-    content = models.TextField()
-    is_public = models.BooleanField()
-    customer = models.ForeignKey('AccountUser', models.DO_NOTHING)
-    user = models.ForeignKey('AccountUser', models.DO_NOTHING, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'account_customernote'
 
 
 class AccountStaffnotificationrecipient(models.Model):
@@ -77,6 +66,19 @@ class AccountUser(models.Model):
     class Meta:
         managed = False
         db_table = 'account_user'
+
+
+
+class AccountCustomernote(models.Model):
+    date = models.DateTimeField()
+    content = models.TextField()
+    is_public = models.BooleanField()
+    customer = models.ForeignKey(AccountUser, models.DO_NOTHING)
+    user = models.ForeignKey(AccountUser, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'account_customernote'
 
 
 class AccountUserAddresses(models.Model):
