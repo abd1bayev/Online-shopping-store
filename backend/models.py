@@ -476,6 +476,8 @@ class CheckoutCheckoutline(models.Model):
 
 
 
+
+
 class CoreEventdelivery(models.Model):
     created_at = models.DateTimeField()
     status = models.CharField(max_length=255)
@@ -539,6 +541,11 @@ class CsvExportfile(models.Model):
     class Meta:
         managed = False
         db_table = 'csv_exportfile'
+
+
+
+
+
 
 
 class DiscountInstallmentplan(models.Model):
@@ -930,6 +937,12 @@ class GiftcardGiftcardtag(models.Model):
         db_table = 'giftcard_giftcardtag'
 
 
+
+
+
+
+
+
 class HomepageBanner(models.Model):
     seo_title = models.CharField(max_length=70, blank=True, null=True)
     seo_description = models.CharField(max_length=300, blank=True, null=True)
@@ -995,6 +1008,10 @@ class InvoiceInvoiceevent(models.Model):
     class Meta:
         managed = False
         db_table = 'invoice_invoiceevent'
+
+
+
+
 
 
 class MenuMenu(models.Model):
@@ -1269,6 +1286,14 @@ class PaymentCurrency(models.Model):
     class Meta:
         managed = False
         db_table = 'payment_currency'
+
+
+
+
+
+
+
+
 
 
 class PaymentPayment(models.Model):
@@ -1719,6 +1744,15 @@ class ShippingShippingzoneChannels(models.Model):
         unique_together = (('shippingzone', 'channel'),)
 
 
+
+
+
+
+
+
+
+
+
 class SiteSitesettings(models.Model):
     header_text = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
@@ -1868,6 +1902,11 @@ class WebhookWebhookevent(models.Model):
     class Meta:
         managed = False
         db_table = 'webhook_webhookevent'
+
+
+
+
+
 
 
 class WishlistWishlist(models.Model):

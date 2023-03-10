@@ -38,6 +38,14 @@ INSTALLED_APPS = [
     'apps.attribute',
     'apps.order',
     'apps.discount',
+    'apps.page',
+    'apps.payment',
+    'apps.menu',
+    'apps.shipping',
+    'apps.sitesettings',
+    'apps.wishlist',
+    'apps.csvexport',
+    'apps.giftcard',
 
 ]
 

@@ -1,13 +1,16 @@
 from django.db import models
-
 from apps.account.models import AccountUser, AccountAddress
+from apps.giftcard.models import GiftcardGiftcard
+from apps.product.models import ProductProductvariant
+from apps.shipping.models import ShippingShippingmethod
+from apps.sitesettings.models import WarehouseWarehouse
 
 
 # Create your models here.
 
 class ChannelChannel(models.Model):
     name = models.CharField(max_length=250)
-    slug = models.CharField(unique=True, max_length=255)
+    slug = models.SlugField(unique=True, max_length=255)
     is_active = models.BooleanField()
     currency_code = models.CharField(max_length=3)
     default_country = models.CharField(max_length=2)
@@ -15,6 +18,30 @@ class ChannelChannel(models.Model):
     class Meta:
         managed = False
         db_table = 'channel_channel'
+
+
+class PluginsPluginconfiguration(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+    active = models.BooleanField()
+    configuration = models.JSONField(blank=True, null=True)
+    identifier = models.CharField(max_length=128)
+    channel = models.ForeignKey(ChannelChannel, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'plugins_pluginconfiguration'
+        unique_together = (('identifier', 'channel'),)
+
+
+class PluginsEmailtemplate(models.Model):
+    name = models.CharField(max_length=255)
+    value = models.TextField()
+    plugin_configuration = models.ForeignKey(PluginsPluginconfiguration, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'plugins_emailtemplate'
 
 
 
@@ -30,7 +57,7 @@ class CheckoutCheckout(models.Model):
     discount_name = models.CharField(max_length=255, blank=True, null=True)
     note = models.TextField()
     shipping_address = models.ForeignKey(AccountAddress, models.DO_NOTHING, blank=True, null=True)
-    shipping_method = models.ForeignKey('ShippingShippingmethod', models.DO_NOTHING, blank=True, null=True)
+    shipping_method = models.ForeignKey(ShippingShippingmethod, models.DO_NOTHING, blank=True, null=True)
     voucher_code = models.CharField(max_length=12, blank=True, null=True)
     translated_discount_name = models.CharField(max_length=255, blank=True, null=True)
     metadata = models.JSONField(blank=True, null=True)
@@ -41,7 +68,7 @@ class CheckoutCheckout(models.Model):
     tracking_code = models.CharField(max_length=255, blank=True, null=True)
     channel = models.ForeignKey(ChannelChannel, models.DO_NOTHING)
     language_code = models.CharField(max_length=35)
-    collection_point = models.ForeignKey('WarehouseWarehouse', models.DO_NOTHING, blank=True, null=True)
+    collection_point = models.ForeignKey(WarehouseWarehouse, models.DO_NOTHING, blank=True, null=True)
     phone = models.CharField(max_length=128, blank=True, null=True)
 
     class Meta:
@@ -51,7 +78,7 @@ class CheckoutCheckout(models.Model):
 
 class CheckoutCheckoutGiftCards(models.Model):
     checkout = models.ForeignKey(CheckoutCheckout, models.DO_NOTHING)
-    giftcard = models.ForeignKey('GiftcardGiftcard', models.DO_NOTHING)
+    giftcard = models.ForeignKey(GiftcardGiftcard, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -62,7 +89,7 @@ class CheckoutCheckoutGiftCards(models.Model):
 class CheckoutCheckoutline(models.Model):
     quantity = models.IntegerField()
     checkout = models.ForeignKey(CheckoutCheckout, models.DO_NOTHING)
-    variant = models.ForeignKey('ProductProductvariant', models.DO_NOTHING)
+    variant = models.ForeignKey(ProductProductvariant, models.DO_NOTHING)
 
     class Meta:
         managed = False

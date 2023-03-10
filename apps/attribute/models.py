@@ -1,5 +1,6 @@
 from django.db import models
 
+from apps.page.models import PagePagetype, PagePage
 from apps.product.models import ProductProduct, ProductProductvariant, ProductProducttype
 
 
@@ -76,12 +77,12 @@ class AttributeAttributeproduct(models.Model):
 class AttributeAttributepage(models.Model):
     sort_order = models.IntegerField(blank=True, null=True)
     attribute = models.ForeignKey(AttributeAttribute, models.DO_NOTHING)
-    page_type = models.ForeignKey('PagePagetype', models.DO_NOTHING)
+    page_type = models.ForeignKey(PagePagetype, models.DO_NOTHING)
 
 
 class AttributeAssignedpageattribute(models.Model):
     assignment = models.ForeignKey(AttributeAttributepage, models.DO_NOTHING)
-    page = models.ForeignKey('PagePage', models.DO_NOTHING)
+    page = models.ForeignKey(PagePage, models.DO_NOTHING)
     class Meta:
         managed = False
         db_table = 'attribute_assignedpageattribute'

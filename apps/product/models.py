@@ -28,6 +28,22 @@ class ProductCategory(models.Model):
         db_table = 'product_category'
 
 
+class ProductProducttype(models.Model):
+    name = models.CharField(max_length=250)
+    has_variants = models.BooleanField()
+    is_shipping_required = models.BooleanField()
+    weight = models.FloatField()
+    is_digital = models.BooleanField()
+    metadata = models.JSONField(blank=True, null=True)
+    private_metadata = models.JSONField(blank=True, null=True)
+    slug = models.CharField(unique=True, max_length=255)
+    kind = models.CharField(max_length=32)
+
+    class Meta:
+        managed = False
+        db_table = 'product_producttype'
+
+
 class ProductCategorytranslation(models.Model):
     seo_title = models.CharField(max_length=70, blank=True, null=True)
     seo_description = models.CharField(max_length=300, blank=True, null=True)
@@ -86,50 +102,6 @@ class ProductCollectiontranslation(models.Model):
         unique_together = (('language_code', 'collection'),)
 
 
-class ProductDigitalcontent(models.Model):
-    use_default_settings = models.BooleanField()
-    automatic_fulfillment = models.BooleanField()
-    content_type = models.CharField(max_length=128)
-    content_file = models.CharField(max_length=100)
-    max_downloads = models.IntegerField(blank=True, null=True)
-    url_valid_days = models.IntegerField(blank=True, null=True)
-    product_variant = models.OneToOneField('ProductProductvariant', models.DO_NOTHING)
-    metadata = models.JSONField(blank=True, null=True)
-    private_metadata = models.JSONField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'product_digitalcontent'
-
-
-class ProductDigitalcontenturl(models.Model):
-    token = models.UUIDField(unique=True)
-    created = models.DateTimeField()
-    download_num = models.IntegerField()
-    content = models.ForeignKey(ProductDigitalcontent, models.DO_NOTHING)
-    # line = models.OneToOneField(OrderOrderline, models.DO_NOTHING, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'product_digitalcontenturl'
-
-
-class ProductProducttype(models.Model):
-    name = models.CharField(max_length=250)
-    has_variants = models.BooleanField()
-    is_shipping_required = models.BooleanField()
-    weight = models.FloatField()
-    is_digital = models.BooleanField()
-    metadata = models.JSONField(blank=True, null=True)
-    private_metadata = models.JSONField(blank=True, null=True)
-    slug = models.CharField(unique=True, max_length=255)
-    kind = models.CharField(max_length=32)
-
-    class Meta:
-        managed = False
-        db_table = 'product_producttype'
-
-
 class ProductProduct(models.Model):
     name = models.CharField(max_length=250)
     description = models.JSONField(blank=True, null=True)
@@ -154,6 +126,55 @@ class ProductProduct(models.Model):
     class Meta:
         managed = False
         db_table = 'product_product'
+
+class ProductProductvariant(models.Model):
+    sku = models.CharField(unique=True, max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255)
+    product = models.ForeignKey(ProductProduct, models.DO_NOTHING)
+    track_inventory = models.BooleanField()
+    weight = models.FloatField(blank=True, null=True)
+    metadata = models.JSONField(blank=True, null=True)
+    private_metadata = models.JSONField(blank=True, null=True)
+    sort_order = models.IntegerField(blank=True, null=True)
+    is_preorder = models.BooleanField()
+    preorder_end_date = models.DateTimeField(blank=True, null=True)
+    preorder_global_threshold = models.IntegerField(blank=True, null=True)
+    quantity_limit_per_customer = models.IntegerField(blank=True, null=True)
+    in_discount = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'product_productvariant'
+
+
+class ProductDigitalcontent(models.Model):
+    use_default_settings = models.BooleanField()
+    automatic_fulfillment = models.BooleanField()
+    content_type = models.CharField(max_length=128)
+    content_file = models.CharField(max_length=100)
+    max_downloads = models.IntegerField(blank=True, null=True)
+    url_valid_days = models.IntegerField(blank=True, null=True)
+    product_variant = models.OneToOneField(ProductProductvariant, models.DO_NOTHING)
+    metadata = models.JSONField(blank=True, null=True)
+    private_metadata = models.JSONField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'product_digitalcontent'
+
+
+class ProductDigitalcontenturl(models.Model):
+    token = models.UUIDField(unique=True)
+    created = models.DateTimeField()
+    download_num = models.IntegerField()
+    content = models.ForeignKey(ProductDigitalcontent, models.DO_NOTHING)
+    # line = models.OneToOneField(OrderOrderline, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'product_digitalcontenturl'
+
+
 
 
 class ProductProductchannellisting(models.Model):
@@ -218,24 +239,6 @@ class ProductProducttranslation(models.Model):
 
 
 
-class ProductProductvariant(models.Model):
-    sku = models.CharField(unique=True, max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255)
-    product = models.ForeignKey(ProductProduct, models.DO_NOTHING)
-    track_inventory = models.BooleanField()
-    weight = models.FloatField(blank=True, null=True)
-    metadata = models.JSONField(blank=True, null=True)
-    private_metadata = models.JSONField(blank=True, null=True)
-    sort_order = models.IntegerField(blank=True, null=True)
-    is_preorder = models.BooleanField()
-    preorder_end_date = models.DateTimeField(blank=True, null=True)
-    preorder_global_threshold = models.IntegerField(blank=True, null=True)
-    quantity_limit_per_customer = models.IntegerField(blank=True, null=True)
-    in_discount = models.BooleanField()
-
-    class Meta:
-        managed = False
-        db_table = 'product_productvariant'
 
 
 class ProductProductvariantchannellisting(models.Model):

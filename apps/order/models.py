@@ -3,7 +3,11 @@ from django.db import models
 from apps.account.models import AccountUser, AccountAddress
 from apps.app.models import AppApp
 from apps.checkout.models import ChannelChannel
+from apps.discount.models import DiscountVoucher
+from apps.giftcard.models import GiftcardGiftcard
 from apps.product.models import ProductProductvariant
+from apps.shipping.models import ShippingShippingmethod
+from apps.sitesettings.models import WarehouseWarehouse, WarehouseStock
 
 
 # Create your models here.
@@ -17,14 +21,14 @@ class OrderOrder(models.Model):
     shipping_address = models.ForeignKey(AccountAddress, models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AccountUser, models.DO_NOTHING, blank=True, null=True)
     total_net_amount = models.DecimalField(max_digits=12, decimal_places=3)
-    voucher = models.ForeignKey('DiscountVoucher', models.DO_NOTHING, blank=True, null=True)
+    voucher = models.ForeignKey(DiscountVoucher, models.DO_NOTHING, blank=True, null=True)
     language_code = models.CharField(max_length=35)
     shipping_price_gross_amount = models.DecimalField(max_digits=12, decimal_places=3)
     total_gross_amount = models.DecimalField(max_digits=12, decimal_places=3)
     shipping_price_net_amount = models.DecimalField(max_digits=12, decimal_places=3)
     status = models.CharField(max_length=32)
     shipping_method_name = models.CharField(max_length=255, blank=True, null=True)
-    shipping_method = models.ForeignKey('ShippingShippingmethod', models.DO_NOTHING, blank=True, null=True)
+    shipping_method = models.ForeignKey(ShippingShippingmethod, models.DO_NOTHING, blank=True, null=True)
     display_gross_prices = models.BooleanField()
     customer_note = models.TextField()
     weight = models.FloatField()
@@ -40,7 +44,7 @@ class OrderOrder(models.Model):
     total_paid_amount = models.DecimalField(max_digits=12, decimal_places=3)
     origin = models.CharField(max_length=32)
     original = models.ForeignKey('self', models.DO_NOTHING, blank=True, null=True)
-    collection_point = models.ForeignKey('WarehouseWarehouse', models.DO_NOTHING, blank=True, null=True)
+    collection_point = models.ForeignKey(WarehousWarehouse, models.DO_NOTHING, blank=True, null=True)
     collection_point_name = models.CharField(max_length=255, blank=True, null=True)
     search_document = models.TextField()
     user_phone = models.CharField(max_length=128)
@@ -123,7 +127,7 @@ class OrderFulfillmentline(models.Model):
     order_line = models.ForeignKey(OrderOrderline, models.DO_NOTHING)
     quantity = models.IntegerField()
     fulfillment = models.ForeignKey(OrderFulfillment, models.DO_NOTHING)
-    stock = models.ForeignKey('WarehouseStock', models.DO_NOTHING, blank=True, null=True)
+    stock = models.ForeignKey(WarehouseStock, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
