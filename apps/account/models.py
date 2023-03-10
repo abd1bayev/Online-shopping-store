@@ -6,27 +6,21 @@ class AccountAddress(models.Model):
     last_name = models.CharField(max_length=256)
     company_name = models.CharField(max_length=256)
     street_address_1 = models.CharField(max_length=256)
-    street_address_2 = models.CharField(max_length=256)
+    street_address_2 = models.CharField(max_length=256, blank=True, null=True)
     city = models.CharField(max_length=256)
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=2)
-    country_area = models.CharField(max_length=128)
+    country_area = models.CharField(max_length=128, blank=True, null=True)
     phone = models.CharField(max_length=128)
-    city_area = models.CharField(max_length=128)
-
-
-
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150)
-
+    city_area = models.CharField(max_length=128, blank=True, null=True)
 
 
 class AccountUser(models.Model):
-    is_superuser = models.BooleanField()
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     password = models.CharField(max_length=128)
-    date_joined = models.DateTimeField()
+    date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(blank=True, null=True)
     default_billing_address = models.ForeignKey(
         AccountAddress,
@@ -54,47 +48,29 @@ class AccountUser(models.Model):
     phone = models.CharField(unique=True, max_length=128)
 
 
-
 class AccountCustomernote(models.Model):
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    is_public = models.BooleanField()
-    user = models.ForeignKey(AccountUser, models.DO_NOTHING, blank=True, null=True)
-
-
-
-class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-
+    is_public = models.BooleanField(default=False)
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
 
 
 class AccountStaffnotificationrecipient(models.Model):
-    active = models.BooleanField()
-    user = models.OneToOneField(AccountUser, models.DO_NOTHING, blank=True, null=True)
+    active = models.BooleanField(default=True)
+    user = models.OneToOneField(AccountUser, on_delete=models.CASCADE, blank=True, null=True)
     staff_email = models.CharField(unique=True, max_length=254, blank=True, null=True)
 
 
-
 class AccountUserAddresses(models.Model):
-    user = models.ForeignKey(AccountUser, models.DO_NOTHING)
-    address = models.ForeignKey(AccountAddress, models.DO_NOTHING)
-
-
-
-class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    content_type = models.ForeignKey(DjangoContentType, models.DO_NOTHING)
-    codename = models.CharField(max_length=100)
-
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
+    address = models.ForeignKey(AccountAddress, on_delete=models.CASCADE)
 
 
 class AccountUserGroups(models.Model):
-    user = models.ForeignKey(AccountUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
+    group = models.ForeignKey('auth.Group', on_delete=models.CASCADE)
 
 
 class AccountUserUserPermissions(models.Model):
-    user = models.ForeignKey(AccountUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
-
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
+    permission = models.ForeignKey('auth.Permission', on_delete=models.CASCADE)

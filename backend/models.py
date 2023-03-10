@@ -111,6 +111,19 @@ class AccountUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 class AppApp(models.Model):
     private_metadata = models.JSONField(blank=True, null=True)
     metadata = models.JSONField(blank=True, null=True)
@@ -198,10 +211,13 @@ class AppApptoken(models.Model):
         db_table = 'app_apptoken'
 
 
+
+
+
+
 class AttributeAssignedpageattribute(models.Model):
     assignment = models.ForeignKey('AttributeAttributepage', models.DO_NOTHING)
     page = models.ForeignKey('PagePage', models.DO_NOTHING)
-
     class Meta:
         managed = False
         db_table = 'attribute_assignedpageattribute'
@@ -357,6 +373,10 @@ class AttributeAttributevariant(models.Model):
         unique_together = (('attribute', 'product_type'),)
 
 
+
+
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -373,6 +393,8 @@ class AuthGroupPermissions(models.Model):
         managed = False
         db_table = 'auth_group_permissions'
         unique_together = (('group', 'permission'),)
+
+
 
 
 class AuthPermission(models.Model):
@@ -396,6 +418,9 @@ class ChannelChannel(models.Model):
     class Meta:
         managed = False
         db_table = 'channel_channel'
+
+
+
 
 
 class CheckoutCheckout(models.Model):
@@ -447,6 +472,10 @@ class CheckoutCheckoutline(models.Model):
         db_table = 'checkout_checkoutline'
 
 
+
+
+
+
 class CoreEventdelivery(models.Model):
     created_at = models.DateTimeField()
     status = models.CharField(max_length=255)
@@ -472,6 +501,8 @@ class CoreEventdeliveryattempt(models.Model):
     class Meta:
         managed = False
         db_table = 'core_eventdeliveryattempt'
+
+
 
 
 class CoreEventpayload(models.Model):
@@ -705,6 +736,8 @@ class DiscountVouchertranslation(models.Model):
         managed = False
         db_table = 'discount_vouchertranslation'
         unique_together = (('language_code', 'voucher'),)
+
+
 
 
 class DjangoCeleryBeatClockedschedule(models.Model):
@@ -1005,6 +1038,12 @@ class MenuMenuitemtranslation(models.Model):
         managed = False
         db_table = 'menu_menuitemtranslation'
         unique_together = (('language_code', 'menu_item'),)
+
+
+
+
+
+
 
 
 class OrderFromUsaSpecialorder(models.Model):
@@ -1323,6 +1362,14 @@ class PluginsPluginconfiguration(models.Model):
         managed = False
         db_table = 'plugins_pluginconfiguration'
         unique_together = (('identifier', 'channel'),)
+
+
+
+
+
+
+
+
 
 
 class ProductCategory(models.Model):

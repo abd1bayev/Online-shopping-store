@@ -32,6 +32,13 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'apps.account',
+    'apps.product',
+    'apps.checkout',
+    'apps.app',
+    'apps.attribute',
+    'apps.order',
+    'apps.discount',
+
 ]
 
 MIDDLEWARE = [
