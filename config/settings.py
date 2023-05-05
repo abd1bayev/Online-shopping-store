@@ -41,7 +41,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = 'Eshop.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -59,7 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Eshop.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
