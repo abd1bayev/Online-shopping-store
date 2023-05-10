@@ -10,9 +10,11 @@ class Products(models.Model):
     @staticmethod
     def get_products_by_id(ids):
         return Products.objects.filter (id__in=ids)
+
     @staticmethod
     def get_all_products():
         return Products.objects.all()
+
 
     @staticmethod
     def get_all_products_by_categoryid(category_id):
@@ -20,3 +22,6 @@ class Products(models.Model):
             return Products.objects.filter (category=category_id)
         else:
             return Products.get_all_products();
+
+    def __str__(self):
+        return self.name
