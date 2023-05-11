@@ -27,4 +27,4 @@ class Customer(models.Model):
         return False
 
     def __str__(self):
-        return self.phone
+        return self.first_name
