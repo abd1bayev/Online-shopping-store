@@ -1,6 +1,6 @@
 # Online-shopping-store
 
-<img width="2040" alt="Снимок экрана 2023-05-11 в 13 24 37" src="https://github.com/abd1bayev/Online-shopping-store/assets/99121169/aa407629-c439-4d7d-9e29-5ddc59dc98c4">
+<img width="2040" alt="Снимок экрана 2023-05-11 в 13 24 37" src="https://github.com/abd1bayev/Online-shopping-store/assets/99121169/26598283-0598-42cf-a46c-7235c7134c03">
 
 
 <h2>Our Django project will help you create an online store. Through this project, users will become online shoppers and will be able to choose products, buy and place orders.</h2>
