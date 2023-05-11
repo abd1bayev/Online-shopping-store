@@ -31,6 +31,7 @@
 					<img class="card-img-top" src="{{product.image.url}}" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-title">{{product.name}}</p>
+						<p class="card-title">{{product.description |safe}}</p>
 						<p class="card-text"><b>{{product.price|currency}}</b></p>
 						<!-- {{product | is_in_cart:request.session.cart }} -->
 					</div>
